@@ -29,7 +29,7 @@
 
     "armourSave": {
       "armour": { "long": "Armour", "abbr": "Armr"},
-      "shield": { "long": "Shield", "abbr": "Shld"}
+      "field": { "long": "Field/Aura", "abbr": "F/A"}
     },
 
     "SheetLabels": {

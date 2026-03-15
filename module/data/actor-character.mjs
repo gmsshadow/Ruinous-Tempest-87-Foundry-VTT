@@ -6,6 +6,21 @@ export default class rt87Character extends rt87ActorBase {
     'RT87.Actor.Character',
   ];
 
+  /**
+   * Migrate legacy data: rename armourSave.shield to armourSave.field (Field/Aura).
+   * @override
+   */
+  static migrateData(source) {
+    const data = super.migrateData?.(source) ?? foundry.utils.deepClone(source);
+    // TypeDataModel receives the system object (armourSave at top level) or full document (under system)
+    const armourSave = data.armourSave ?? data.system?.armourSave;
+    if (armourSave?.shield !== undefined) {
+      armourSave.field = armourSave.shield;
+      delete armourSave.shield;
+    }
+    return data;
+  }
+
   static defineSchema() {
     const fields = foundry.data.fields;
     const requiredInteger = { required: true, nullable: false, integer: true };

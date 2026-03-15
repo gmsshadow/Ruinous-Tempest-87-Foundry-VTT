@@ -47,10 +47,10 @@
       "thumbnail": "systems/rt87/assets/imperial.png"
     }
   ],
-  "version": "3.0.37",
+  "version": "3.0.38",
   "compatibility": {
     "minimum": "13.339",
-    "verified": "13.345"
+    "verified": "13.351"
   },
   "esmodules": ["module/rt87.mjs"],
   "styles": ["css/rt87.css"],

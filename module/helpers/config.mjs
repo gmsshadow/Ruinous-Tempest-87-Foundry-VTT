@@ -59,10 +59,10 @@ RT87.movementAbilitiesAbbreviation = {
 
 RT87.armourSave = {
   armour: 'RT87.armourSave.armour.long',
-  shield: 'RT87.armourSave.shield.long',
+  field: 'RT87.armourSave.field.long',
 };
 
 RT87.armourSaveAbbreviation = {
   armour: 'RT87.armourSaveAbbreviation.armour.abbr',
-  shield: 'RT87.armourSaveAbbreviation.shield.abbr',
+  field: 'RT87.armourSaveAbbreviation.field.abbr',
 };
