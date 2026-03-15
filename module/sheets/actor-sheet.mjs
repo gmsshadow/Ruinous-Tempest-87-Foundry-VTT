@@ -417,15 +417,22 @@ export class rt87ActorSheet extends api.HandlebarsApplicationMixin(
                 if (effectiveDc != null) roll.options.dc = effectiveDc;
                 await roll.evaluate();
                 // Cap outcomes: 1d6 → 1 always pass, 6 always fail; 2d6 → 2 always pass, 12 always fail.
+                // Armour/field saves: effective target 0 always fails (even on 1).
                 let outcome = null;
                 let pass = null;
+                const isSave = dataset.save === "true";
                 if (effectiveDc != null) {
                   const total = roll.total;
                   const is1d6 = baseFormula === "1d6";
-                  outcome = is1d6
-                    ? (total === 1 ? "pass" : total === 6 ? "fail" : total <= effectiveDc ? "pass" : "fail")
-                    : (total === 2 ? "pass" : total === 12 ? "fail" : total <= effectiveDc ? "pass" : "fail");
-                  pass = outcome === "pass";
+                  if (isSave && effectiveDc <= 0) {
+                    outcome = "fail";
+                    pass = false;
+                  } else {
+                    outcome = is1d6
+                      ? (total === 1 ? "pass" : total === 6 ? "fail" : total <= effectiveDc ? "pass" : "fail")
+                      : (total === 2 ? "pass" : total === 12 ? "fail" : total <= effectiveDc ? "pass" : "fail");
+                    pass = outcome === "pass";
+                  }
                 }
                 // Build flavor so message text shows modifier and result (not just static "Ability check vs...").
                 let flavor = label || "";
