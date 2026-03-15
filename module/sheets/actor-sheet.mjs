@@ -417,20 +417,24 @@ export class rt87ActorSheet extends api.HandlebarsApplicationMixin(
                 if (effectiveDc != null) roll.options.dc = effectiveDc;
                 await roll.evaluate();
                 // Cap outcomes: 1d6 → 1 always pass, 6 always fail; 2d6 → 2 always pass, 12 always fail.
+                let outcome = null;
+                let pass = null;
                 if (effectiveDc != null) {
                   const total = roll.total;
                   const is1d6 = baseFormula === "1d6";
-                  const outcome = is1d6
+                  outcome = is1d6
                     ? (total === 1 ? "pass" : total === 6 ? "fail" : total <= effectiveDc ? "pass" : "fail")
                     : (total === 2 ? "pass" : total === 12 ? "fail" : total <= effectiveDc ? "pass" : "fail");
-                  roll.options.outcome = outcome;
-                  roll.options.pass = outcome === "pass";
+                  pass = outcome === "pass";
                 }
                 await roll.toMessage({
                   speaker: ChatMessage.getSpeaker({ actor: sheet.actor }),
                   flavor: label,
                   rollMode: game.settings.get("core", "rollMode"),
                   template: "systems/rt87/templates/chat/roll-test.hbs",
+                  flags: {
+                    rt87: { outcome, pass, dc: effectiveDc },
+                  },
                 });
                 resolve(roll);
               },

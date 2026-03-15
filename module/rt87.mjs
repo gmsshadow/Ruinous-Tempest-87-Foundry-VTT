@@ -92,6 +92,22 @@ Handlebars.registerHelper('toLowerCase', function (str) {
 
 
 /* -------------------------------------------- */
+/*  Chat message roll outcome (pass/fail)       */
+/* -------------------------------------------- */
+
+// Outcome is stored in message flags because roll template may not receive toMessage options.
+Hooks.on('renderChatMessage', (message, html, messageData) => {
+  const rt87 = message.flags?.rt87;
+  if (!rt87?.outcome) return;
+  const outcome = rt87.outcome;
+  const pass = rt87.pass;
+  const $roll = html.find('.rt87-roll');
+  if (!$roll.length) return;
+  $roll.find('.dice-total').addClass(outcome);
+  $roll.find('.rt87-outcome').html(pass ? '<span class="pass">Pass!</span>' : '<span class="fail">Fail!</span>');
+});
+
+/* -------------------------------------------- */
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
 

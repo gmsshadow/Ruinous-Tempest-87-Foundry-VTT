@@ -1,27 +1,10 @@
+{{!-- Pass/fail outcome is injected by renderChatMessage hook from message.flags.rt87 --}}
 <div class="dice-roll rt87-roll">
   <div class="dice-result">
     <div class="dice-formula">{{roll.formula}}</div>
-    {{!-- outcome: 1d6 → 1 always pass, 6 always fail; 2d6 → 2 always pass, 12 always fail --}}
-    <div
-      class="dice-total {{#if roll.options.outcome}}{{roll.options.outcome}}{{else}}{{#if (lte roll.total roll.options.dc)}}pass{{else}}fail{{/if}}{{/if}}"
-    >
+    <div class="dice-total">
       {{roll.total}}
     </div>
   </div>
-
-  <div class="rt87-outcome">
-    {{#if roll.options.outcome}}
-      {{#if roll.options.pass}}
-        <span class="pass">Pass!</span>
-      {{else}}
-        <span class="fail">Fail!</span>
-      {{/if}}
-    {{else}}
-      {{#if (lte roll.total roll.options.dc)}}
-        <span class="pass">Pass!</span>
-      {{else}}
-        <span class="fail">Fail!</span>
-      {{/if}}
-    {{/if}}
-  </div>
+  <div class="rt87-outcome"></div>
 </div>
