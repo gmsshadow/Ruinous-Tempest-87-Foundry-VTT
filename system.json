@@ -1,7 +1,7 @@
 {
   "id": "rt87",
-  "title": "Warhammer 40k Rogue Trader (1987)",
-  "description": "The Warhammer 40k Rogue Trader (1987) system for FoundryVTT!",
+  "title": "Ruinous Tempest 87",
+  "description": "A skirmish based RPG system for FoundryVTT based on Classic British Skirmish games",
   "authors": [
     {
       "name": "Barry Robertson",
@@ -35,10 +35,10 @@
       "paths": ["css", "lang", "templates"]
     }
   },
-  "url": "https://github.com/gmsshadow/Rogue-Trader-87-Foundry-VTT/",
+  "url": "https://github.com/gmsshadow/Ruinous-Tempest-87-Foundry-VTT/",
   "license": "LICENSE.txt",
   "readme": "README.md",
-  "bugs": "https://github.com/gmsshadow/Rogue-Trader-87-Foundry-VTT/issues",
+  "bugs": "https://github.com/gmsshadow/Ruinous-Tempest-Trader-87-Foundry-VTT/issues",
   "changelog": "CHANGELOG.md",
   "media": [
     {
@@ -64,8 +64,8 @@
   "packs": [],
   "packFolders": [],
   "socket": false,
-  "manifest": "https://raw.githubusercontent.com/gmsshadow/Rogue-Trader-87-Foundry-VTT/refs/heads/main/system.json",
-  "download": "https://github.com/gmsshadow/Rogue-Trader-87-Foundry-VTT/archive/refs/heads/main.zip",
+  "manifest": "https://raw.githubusercontent.com/gmsshadow/Ruinous-Tempest-87-Foundry-VTT/refs/heads/main/system.json",
+  "download": "https://github.com/gmsshadow/Ruinous-Tempest-87-Foundry-VTT/archive/refs/heads/main.zip",
   "background": "systems/rt87/assets/rtBackground.jpg",
   "grid": {
     "type": 1,
