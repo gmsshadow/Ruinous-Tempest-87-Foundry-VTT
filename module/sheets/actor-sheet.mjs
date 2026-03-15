@@ -387,20 +387,54 @@ export class rt87ActorSheet extends api.HandlebarsApplicationMixin(
         if (item) return item.roll();
     }
 
-    // Handle rolls that supply the formula directly.
+    // Handle rolls that supply the formula directly (abilities, saves).
+    if (dataset.roll) {
+      const label = dataset.label ? `[ability] ${dataset.label}` : "";
+      const baseFormula = dataset.roll;
+      const baseDc = dataset.dc != null && dataset.dc !== "" ? Number(dataset.dc) : null;
+      const sheet = this;
 
-  if ( dataset.roll ) {
-    const label = dataset.label ? `[ability] ${dataset.label}` : "";
-    const roll  = new Roll(dataset.roll, this.actor.getRollData());
-    await roll.toMessage({
-      speaker:  ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor:   label,
-      rollMode: game.settings.get("core", "rollMode"),
-      template: "systems/rt87/templates/chat/roll-test.hbs"
-    });
-    return roll;
+      return new Promise((resolve) => {
+        new Dialog({
+          title: game.i18n.localize("RT87.RollDialog.Title"),
+          content: `
+            <form class="rt87-roll-dialog">
+              <div class="form-group">
+                <label>${game.i18n.localize("RT87.RollDialog.Modifier")}</label>
+                <input type="number" name="modifier" value="0" data-dtype="Number"/>
+              </div>
+            </form>
+          `,
+          buttons: {
+            roll: {
+              icon: "<i class='fas fa-dice-d6'></i>",
+              label: game.i18n.localize("RT87.RollDialog.Roll"),
+              callback: async (html) => {
+                const modifier = parseInt(html.find("[name=modifier]").val(), 10) || 0;
+                // Modifier changes the target number (roll under), not the dice roll.
+                const effectiveDc = baseDc != null ? baseDc + modifier : null;
+                const roll = new Roll(baseFormula, sheet.actor.getRollData());
+                if (effectiveDc != null) roll.options.dc = effectiveDc;
+                await roll.toMessage({
+                  speaker: ChatMessage.getSpeaker({ actor: sheet.actor }),
+                  flavor: label,
+                  rollMode: game.settings.get("core", "rollMode"),
+                  template: "systems/rt87/templates/chat/roll-test.hbs",
+                });
+                resolve(roll);
+              },
+            },
+            cancel: {
+              icon: "<i class='fas fa-times'></i>",
+              label: game.i18n.localize("RT87.RollDialog.Cancel"),
+              callback: () => resolve(null),
+            },
+          },
+          default: "roll",
+        }).render(true);
+      });
+    }
   }
-}
 
   /** Helper Functions */
 

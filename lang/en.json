@@ -32,6 +32,12 @@
       "field": { "long": "Field/Aura", "abbr": "F/A"}
     },
 
+    "RollDialog": {
+      "Title": "Roll",
+      "Modifier": "Modifier to target (roll under or equal)",
+      "Roll": "Roll",
+      "Cancel": "Cancel"
+    },
     "SheetLabels": {
       "Actor": "rt87 Actor Sheet",
       "Item": "rt87 Item Sheet"

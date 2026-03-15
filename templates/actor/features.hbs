@@ -64,7 +64,11 @@
           <div class='ability flexrow flex-group-center'>
             <label
               class='resource-label rollable flexlarge align-left'
-           >
+              data-action='roll'
+              data-roll='1d6'
+              data-label='Check vs {{localize (lookup @root.config.combatAbilities key)}} of {{combatAbilities.value}}'
+              data-dc='{{combatAbilities.value}}'
+            >
               {{localize (lookup @root.config.combatAbilities key)}}
             </label>
             <input
