@@ -36,7 +36,10 @@
       "Title": "Roll",
       "Modifier": "Modifier to target (roll under or equal)",
       "Roll": "Roll",
-      "Cancel": "Cancel"
+      "Cancel": "Cancel",
+      "ChatModifier": " ({modifier} modifier → roll under {target})",
+      "ResultPass": " — Pass!",
+      "ResultFail": " — Fail!"
     },
     "SheetLabels": {
       "Actor": "rt87 Actor Sheet",

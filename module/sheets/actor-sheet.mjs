@@ -427,9 +427,23 @@ export class rt87ActorSheet extends api.HandlebarsApplicationMixin(
                     : (total === 2 ? "pass" : total === 12 ? "fail" : total <= effectiveDc ? "pass" : "fail");
                   pass = outcome === "pass";
                 }
+                // Build flavor so message text shows modifier and result (not just static "Ability check vs...").
+                let flavor = label || "";
+                if (modifier !== 0 && effectiveDc != null) {
+                  const modText = game.i18n.format("RT87.RollDialog.ChatModifier", {
+                    modifier: modifier >= 0 ? `+${modifier}` : String(modifier),
+                    target: effectiveDc,
+                  });
+                  flavor += modText;
+                }
+                if (pass !== null) {
+                  flavor += pass
+                    ? game.i18n.localize("RT87.RollDialog.ResultPass")
+                    : game.i18n.localize("RT87.RollDialog.ResultFail");
+                }
                 await roll.toMessage({
                   speaker: ChatMessage.getSpeaker({ actor: sheet.actor }),
-                  flavor: label,
+                  flavor,
                   rollMode: game.settings.get("core", "rollMode"),
                   template: "systems/rt87/templates/chat/roll-test.hbs",
                   flags: {
