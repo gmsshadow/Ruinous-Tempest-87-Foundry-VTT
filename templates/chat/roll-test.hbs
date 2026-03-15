@@ -1,19 +1,27 @@
 <div class="dice-roll rt87-roll">
   <div class="dice-result">
     <div class="dice-formula">{{roll.formula}}</div>
-    {{!-- compare roll.total to the passed dc from dataset --}}
+    {{!-- outcome: 1d6 → 1 always pass, 6 always fail; 2d6 → 2 always pass, 12 always fail --}}
     <div
-      class="dice-total {{#if (lte roll.total roll.options.dc)}}pass{{else}}fail{{/if}}"
+      class="dice-total {{#if roll.options.outcome}}{{roll.options.outcome}}{{else}}{{#if (lte roll.total roll.options.dc)}}pass{{else}}fail{{/if}}{{/if}}"
     >
       {{roll.total}}
     </div>
   </div>
 
   <div class="rt87-outcome">
-    {{#if (lte roll.total roll.options.dc)}}
-      <span class="pass">Pass!</span>
+    {{#if roll.options.outcome}}
+      {{#if roll.options.pass}}
+        <span class="pass">Pass!</span>
+      {{else}}
+        <span class="fail">Fail!</span>
+      {{/if}}
     {{else}}
-      <span class="fail">Fail!</span>
+      {{#if (lte roll.total roll.options.dc)}}
+        <span class="pass">Pass!</span>
+      {{else}}
+        <span class="fail">Fail!</span>
+      {{/if}}
     {{/if}}
   </div>
 </div>
